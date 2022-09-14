@@ -44,14 +44,9 @@ jobs:
           commit_message: Update docker image ref
           file_pattern: action.yml
 
-      - name: Release
-        id: get-version
-        # Using the older version due to (until fixed):
-        # https://github.com/anothrNick/github-tag-action/issues/139
-        uses: anothrNick/github-tag-action@1.36.0
-        env:
-          RELEASE_BRANCHES: major,minor,patch
-          INITIAL_VERSION: v0.0.0
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: ${{ github.ref_name }}
-          WITH_V: true
+      - name: Bump version and push tag
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          release_branches: major,minor,patch
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: ${{ github.ref_name }}
