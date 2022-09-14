@@ -1,4 +1,5 @@
 name: Execute Yandex Cloud CLI command
+description: Automates installation and configuration of CLI and runs any command quickly
 author: Nikita Volkov
 inputs:
   key:
