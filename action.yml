@@ -13,7 +13,7 @@ outputs:
     description: Command output
 runs:
   using: docker
-  image: docker://ghcr.io/nikita-volkov/yc-cli.github-action:868302bdf9eef03e45ff6e5c3b158887c16e9d30
+  image: docker://ghcr.io/nikita-volkov/yc-cli.github-action:50ea2039c1164dc90f62455d9effd3465835ef7f
   env:
     key: ${{ inputs.key }}
     args: ${{ inputs.args }}
