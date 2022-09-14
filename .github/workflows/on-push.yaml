@@ -50,3 +50,4 @@ jobs:
           release_branches: major,minor,patch
           github_token: ${{ secrets.GITHUB_TOKEN }}
           default_bump: ${{ github.ref_name }}
+          commit_sha: ${{ github.ref_name }}
