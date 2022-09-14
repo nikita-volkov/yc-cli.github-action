@@ -41,7 +41,7 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Update docker image
+          commit_message: Update docker image ref
           file_pattern: action.yml
 
       - name: Release
