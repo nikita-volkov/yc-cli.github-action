@@ -5,7 +5,6 @@ on:
       - major
       - minor
       - patch
-      - master
 
 env:
   REGISTRY: ghcr.io
@@ -17,35 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Derive new version from tags
-        id: get-version
-        # Using the older version due to (until fixed):
-        # https://github.com/anothrNick/github-tag-action/issues/139
-        uses: anothrNick/github-tag-action@1.36.0
-        env:
-          RELEASE_BRANCHES: major,minor,patch
-          INITIAL_VERSION: v0.0.0
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: ${{ github.ref_name }}
-          WITH_V: true
-          DRY_RUN: true
-
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Define image metadata
-      #   id: define-image-metadata
-      #   run: |
-      #     echo ::set-output name=name::${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.get-version.outputs.new_tag }}
-
-      # - name: Define image metadata
-      #   id: define-image-metadata
-      #   run: |
-      #     echo ::set-output name=name::${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
@@ -68,9 +44,14 @@ jobs:
           commit_message: Update docker image
           file_pattern: action.yml
 
-      # - name: Release
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     commit: ${{ github.ref_name }}
-      #     tag: ${{ steps.get-version.outputs.new_tag }}
+      - name: Release
+        id: get-version
+        # Using the older version due to (until fixed):
+        # https://github.com/anothrNick/github-tag-action/issues/139
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          RELEASE_BRANCHES: major,minor,patch
+          INITIAL_VERSION: v0.0.0
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: ${{ github.ref_name }}
+          WITH_V: true
