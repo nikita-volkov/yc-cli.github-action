@@ -1,5 +1,5 @@
 # Summary
 
-GitHub Action for executing Yandex Cloud CLI commands.
+GitHub Action for executing free-form Yandex Cloud CLI commands.
 
-Provides for quick installation of CLI.
+Automates installation and configuration of CLI.
